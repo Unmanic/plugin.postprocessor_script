@@ -185,7 +185,7 @@ def get_executable_venv_python(script_dependencies, temp_working_directory, depe
     """
     Build a VENV for python
     Install all required dependencies
-    Return the updated VENV python executable
+    Return the updated VENV python executable path
 
     :param script_dependencies:
     :param temp_working_directory:
@@ -216,6 +216,15 @@ def get_executable_venv_python(script_dependencies, temp_working_directory, depe
 
 
 def get_executable_node(script_dependencies, temp_working_directory, dependency_cache_directory):
+    """
+    Install all required dependencies
+    Return the node executable path
+
+    :param script_dependencies:
+    :param temp_working_directory:
+    :param dependency_cache_directory:
+    :return:
+    """
     node_executable = shutil.which('node')
     npm_executable = shutil.which('npm')
 
@@ -236,14 +245,14 @@ def get_executable_node(script_dependencies, temp_working_directory, dependency_
     return node_executable
 
 
-def get_temp_directory(final_cache_path):
+def get_temp_directory(cache_file_path):
     """
     Create and return the path to a temp directory in the cache path
 
-    :param final_cache_path:
+    :param cache_file_path:
     :return:
     """
-    output_directory = os.path.join(os.path.dirname(final_cache_path), 'postprocessor_script')
+    output_directory = os.path.join(os.path.dirname(cache_file_path), 'postprocessor_script')
     if not os.path.isdir(output_directory):
         os.makedirs(output_directory)
     return output_directory
@@ -274,8 +283,7 @@ def build_script(settings, data):
     """
     input_type = settings.get_setting('input_type')
     script = settings.get_setting('script')
-    final_cache_path = data.get('final_cache_path')
-    temp_working_directory = get_temp_directory(final_cache_path)
+    temp_working_directory = get_temp_directory(data.get('final_cache_path'))
     script_dependencies = settings.get_setting('script_dependencies')
 
     # We can cache the dependency installation to avoid re-downloading them each time. Fetch the cache directory here
@@ -322,7 +330,7 @@ def on_postprocessor_task_results(data):
     :return:
 
     """
-    # Configure settings object (maintain compatibility with v1 plugins)
+    # Configure settings object
     settings = Settings(library_id=data.get('library_id'))
 
     if settings.get_setting('only_on_task_processing_success'):
@@ -333,10 +341,6 @@ def on_postprocessor_task_results(data):
 
     cmd = settings.get_setting('cmd')
     if settings.get_setting('input_type') != 'command':
-        # Install any dependencies
-
-        # install_dependencies(settings.get_setting('input_type'), settings.get_setting('script_dependencies'),
-        #                      data.get('final_cache_path'), dependency_cache_directory)
         # Generate command to be executed
         cmd = build_script(settings, data)
     args = settings.get_setting('args')

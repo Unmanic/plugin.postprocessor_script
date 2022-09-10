@@ -19,6 +19,10 @@ The following template replacements are available to your command or args.
 If you write one of these variables in your args, it will be substituted with the specified data from the current task.
 
 :::note
+Variable substitutions are not applied to the script, only a script's args.
+:::
+
+:::tip
 In some cases, you may need to place single quotes around these variables as it may contain characters that shell may otherwise attempt to parse.
 :::
 
@@ -28,7 +32,7 @@ Will be replaced with the ID of the library config that was used to process this
 
 Eg.
 ```
-    --library={library_id}
+    --library='{library_id}'
 ```
 
 ###### <span style="color:green">{final_cache_path}</span>
@@ -37,7 +41,7 @@ Will be replaced with the path to the final output file in the Unmanic cache dir
 
 Eg.
 ```
-    --processed-cache-file={final_cache_path}
+    --processed-cache-file='{final_cache_path}'
 ```
 
 ###### <span style="color:green">{output_files}</span>
@@ -48,7 +52,7 @@ Only available when **<span style="color:blue">Run the command for each output f
 
 Eg.
 ```
-    --files={output_files}
+    --files='{output_files}'
 ```
 
 ###### <span style="color:green">{output_file_path}</span>
@@ -59,7 +63,7 @@ Only available when **<span style="color:blue">Run the command for each output f
 
 Eg.
 ```
-    --output={output_file_path}
+    --output='{output_file_path}'
 ```
 
 ###### <span style="color:green">{source_file_path}</span>
@@ -68,7 +72,7 @@ Will be replaced with the full path to the original source file for this task.
 
 Eg.
 ```
-    --sourcefile={source_file_path}
+    --sourcefile='{source_file_path}'
 ```
 
 ###### <span style="color:green">{source_file_size}</span>
@@ -77,7 +81,7 @@ Will be replaced with the size in bytes of the original source file for this tas
 
 Eg.
 ```
-    --originalsize={source_file_size}
+    --originalsize='{source_file_size}'
 ```
 
 ---
