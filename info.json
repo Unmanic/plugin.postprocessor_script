@@ -4,7 +4,7 @@
         2
     ],
     "description": "Execute an external script on completion of a task.",
-    "icon": "https://raw.githubusercontent.com/Josh5/unmanic.plugin.postprocessor_script/master/icon.png",
+    "icon": "https://raw.githubusercontent.com/Unmanic/plugin.postprocessor_script/master/icon.png",
     "id": "postprocessor_script",
     "name": "External Post-processor Script",
     "platform": [
